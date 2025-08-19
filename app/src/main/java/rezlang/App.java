@@ -4,6 +4,8 @@
  */
 package rezlang;
 
+import java.util.logging.Level;
+
 public class App {
 
     private final static String USAGE =
@@ -23,6 +25,8 @@ Options:
 \033[0m
 """;
 
+    private static Level logLvl;
+
     /* -----------------------------------------------------------------
      * -- public methods
      * ----------------------------------------------------------------- */
@@ -33,7 +37,32 @@ Options:
      * @param args
      */
     public static void main(String[] args) {
-        printUsage();
+        boolean Unknown;
+        int     i;
+        String  argument;
+        String  flag;
+
+        flag = null;
+        argument = null;
+        Unknown = false;
+        for (i = 0; i < args.length; i++) {
+            try {
+                switch (args[i]) {
+                case "-i":
+                    i++;
+                    break;
+                case "-o":
+                    i++;
+                    break;
+                case "-h":
+                    /* stop execution */
+                default:
+                    throw new IndexOutOfBoundsException("Print help");
+                }
+            } catch (IndexOutOfBoundsException outOfBounds) {
+                printUsage();
+            }
+        }
     }
 
     /* -----------------------------------------------------------------

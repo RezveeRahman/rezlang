@@ -7,11 +7,32 @@
  */
 package rezlang;
 
+import java.util.logging.Logger;
+
 public class Parser {
+
+    private static final String CLASS_STRING = Parser.class.toString();
+
+    private static Logger ParserLog;
+
+
+    /* -----------------------------------------------------------------
+     * -- constructor methods
+     * ----------------------------------------------------------------- */
+
+    public Parser() {
+
+    }
 
     /* -----------------------------------------------------------------
      * -- public methods
      * ----------------------------------------------------------------- */
+
+    public void setUpLogger() {
+        ParserLog = Logger.getLogger(CLASS_STRING);
+    }
+
+
 
     /* -----------------------------------------------------------------
      * -- private methods
@@ -21,4 +42,10 @@ public class Parser {
      * -- inner classes
      * ----------------------------------------------------------------- */
 
+    /**
+     * This class is responsible for
+     */
+    private static class StreamParserWorker {
+
+    }
 }
