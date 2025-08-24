@@ -1,0 +1,51 @@
+{
+    "folders": [
+        {
+            "name": "rezlang",
+            "path": "../"
+        }
+    ],
+
+	"extensions": {
+		"recommendations": []
+	},
+
+	"settings": {
+		"[markdown]": {
+			"editor.unicodeHighlight.ambiguousCharacters": false,
+			"editor.unicodeHighlight.invisibleCharacters": false,
+			"diffEditor.ignoreTrimWhitespace": false,
+			"editor.wordWrap": "on",
+			"editor.quickSuggestions": {
+				"comments": "off",
+				"strings": "off",
+				"other": "off"
+			},
+			"editor.rulers": [120, 140]
+		},
+
+		"[java]": {
+			"editor.suggest.snippetsPreventQuickSuggestions": false,
+			"editor.rulers": [72, 80],
+			"editor.trimAutoWhitespace": true,
+			"editor.indentSize": "tabSize",
+		},
+
+		/* Java LSP related settings */
+
+		"java.jdt.ls.java.home" : "/usr/lib/jvm/java-21-openjdk-amd64/",
+		"java.configuration.runtimes": [
+			{
+				"default": true,
+				"name" : 	"JavaSE-21",
+				"path": 	"/usr/lib/jvm/java-21-openjdk-amd64",
+				"sources": 	"/usr/lib/jvm/java-21-openjdk-amd64/lib/src.zip",
+				"javadoc": 	"https://docs.oracle.com/en/java/javase/21/docs/api/index.html",
+			},
+		],
+		"java.project.referencedLibraries": [
+			"lib/**/*.jar"
+		],
+		"java.configuration.updateBuildConfiguration": "interactive",
+	}
+}
