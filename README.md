@@ -21,3 +21,8 @@ This language has the following specifications
 - functions
 
 There is not intent on adding features such as `OOP`, or advanced `data structures`.
+
+## Building the project with `gradlew`
+For linux and/or Mac users, use the `gradlew` wrapper. Do note that if you do have `gradle` installed, you can use the
+regular `gradle` commands for compiling the source code. However, the `gradlew` is inteneded for consistency and will
+build the project based on the version of gradle it was created with.
