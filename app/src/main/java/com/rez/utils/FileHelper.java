@@ -9,6 +9,12 @@
  */
 package com.rez.utils;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
+import java.nio.file.Path;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.management.InstanceAlreadyExistsException;
@@ -68,9 +74,42 @@ public class FileHelper {
     }
 
 
+    public synchronized void readFile(Path filePath) {
+        File f;
+
+        try {
+            f = resolvePath(filePath);
+        } catch (FileNotFoundException ffe) {
+            logger.log(Level.SEVERE, ffe.getMessage());
+        }
+    }
+
+
     /* -----------------------------------------------------------------
      * -- private methods
      * ----------------------------------------------------------------- */
+
+     /**
+      * This method is responsible for resolving the file path. It will
+      * check if the `filepath` in question is a file. We do not want to
+      * deal with symbolic links, so we throw an exception if we find one.
+      *
+      * @param filePath
+      * @return
+      * @throws FileNotFoundException
+      */
+    private File resolvePath(Path filePath) throws FileNotFoundException {
+        logger.entering(CLASS_NAME, "resolvePath");
+        if (!Files.exists(filePath, LinkOption.NOFOLLOW_LINKS)
+                || Files.isSymbolicLink(filePath)) {
+            throw new FileNotFoundException("The \"file\" is not found"
+                + " or is a symbolic link!");
+        } else if (Files.isDirectory(filePath, LinkOption.NOFOLLOW_LINKS)) {
+            throw new FileNotFoundException("The \"file\" is a directory");
+        } else {
+            return (filePath.toFile());
+        }
+    }
 
     /* -----------------------------------------------------------------
      * -- inner classes
