@@ -7,7 +7,8 @@
 package com.rez.utils;
 
 public enum SystemCodes {
-    FILE_FAILURE (1);
+    FILE_FAILURE (1),
+    SINGLETON_FAILURE (2);
 
 
     private int code;

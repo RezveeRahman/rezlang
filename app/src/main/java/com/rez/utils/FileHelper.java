@@ -9,13 +9,17 @@
  */
 package com.rez.utils;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
 
 import javax.management.InstanceAlreadyExistsException;
 import javax.management.InstanceNotFoundException;
@@ -23,9 +27,10 @@ import javax.management.InstanceNotFoundException;
 public class FileHelper {
 
     private static final String CLASS_NAME = FileHelper.class.getName();
+    private static final Logger logger = Logger.getLogger(CLASS_NAME);
 
-    private static Logger     logger;
     private static FileHelper instance;
+
 
     /* -----------------------------------------------------------------
      * -- constructor methods
@@ -34,9 +39,7 @@ public class FileHelper {
     /**
      * This constructor creates a new FileHelper instance.
      */
-    private FileHelper() {
-        logger = Logger.getLogger(CLASS_NAME);
-    }
+    private FileHelper() { }
 
 
     /* -----------------------------------------------------------------
@@ -77,11 +80,16 @@ public class FileHelper {
     public synchronized void readFile(Path filePath) {
         File f;
 
+        logger.entering(CLASS_NAME, "readFile");
         try {
             f = resolvePath(filePath);
+            readFileData(f);
         } catch (FileNotFoundException ffe) {
             logger.log(Level.SEVERE, ffe.getMessage());
+        } catch (IOException ioe) {
+            logger.log(Level.SEVERE, ioe.getMessage());
         }
+        logger.exiting(CLASS_NAME, "readFile");
     }
 
 
@@ -109,6 +117,30 @@ public class FileHelper {
         } else {
             return (filePath.toFile());
         }
+    }
+
+    private void readFileData(File file) throws FileNotFoundException,
+            IOException{
+        BufferedReader br;
+        FileReader     fr;
+        Stream<String> streamStr;
+
+        logger.entering(CLASS_NAME, "readFileData");
+        try {
+            fr = new FileReader(file);
+            br = new BufferedReader(fr);
+
+            streamStr = br.lines();
+        } catch (FileNotFoundException fnfe) {
+            throw new FileNotFoundException("file was not found!");
+        } catch (IOException ioe) {
+            throw new IOException("Couldn't open or close streams properly!");
+        }
+
+        streamStr.forEach(System.out::println);
+        br.close();
+        fr.close();
+        logger.exiting(CLASS_NAME, "readFileData");
     }
 
     /* -----------------------------------------------------------------
