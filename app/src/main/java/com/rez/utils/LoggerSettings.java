@@ -32,4 +32,5 @@ public class LoggerSettings {
     public Level getLogLevel() {
         return (logLevel);
     }
+
 }
